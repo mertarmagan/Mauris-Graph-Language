@@ -1,5 +1,7 @@
-# Mauris-The-Graph-Language
-This is a graph language project that was built in Spring 2017 for the Programming Languages lecture.
+# Mauris Graph Language
+This is a graph language that was built in Spring 2017 for the project of Programming Languages lecture.
+
+For further information about the language, please read "Tutorial.pdf"
 
 ## Contributors
 
