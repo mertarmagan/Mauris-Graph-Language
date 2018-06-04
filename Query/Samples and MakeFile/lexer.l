@@ -1,0 +1,98 @@
+%{
+#include<iostream>
+#include "y.tab.h"
+using namespace std;
+int yyparse();
+%}
+%option yylineno
+
+SPACE [ \t]+
+ASSIGN =
+CHECKEQUAL ==
+PLUS \+
+COLON :
+MINUS \-
+MUL \*
+DIV \/
+AT @
+COMMA ,
+DOT \.
+ANGLEOPENING <
+ANGLECLOSING >
+SQUAREOPENING \[
+SQUARECLOSING \]
+CURLYOPENING \{
+CURLYCLOSING \}
+NOT ~
+CONCAT _
+LPARAN \(
+RPARAN \)
+ENDSTATEMENT ;
+AND &&
+OR \|\|
+DIGIT [0-9]
+LETTER [a-zA-Z]
+NEWLINE \n
+NONSTAR [^\*]
+NONSTARNONDIV [^\*/]
+NONNEWLINE [^\n]
+STRINGLITERAL	\"([^\"\\\n]|\\\"|\\n|\\t|\\\\)*\" 
+ID {LETTER}({LETTER}|{DIGIT})*
+INT ({MINUS}|{PLUS})?{DIGIT}+
+FLOAT {INT}"."{DIGIT}+
+COMMENT {DIV}{DIV}{NONNEWLINE}*{NEWLINE}|{DIV}\*({NONSTAR}|\*+{NONSTARNONDIV})*\*+{DIV}
+VERTEXSIGN v
+EDGESIGN e
+QSIGN Q
+QMARK \?
+REGEX REGEX
+EXIST EXIST
+SAME SAME
+BOOL BOOL
+ALTER \|
+
+%%
+{VERTEXSIGN} return VERTEXSIGN ;
+{EDGESIGN} return EDGESIGN ;
+{QSIGN} return QSIGN ;
+{QMARK} return QMARK ;
+{SQUAREOPENING} return SQUAREOPENING ;
+{SQUARECLOSING} return SQUARECLOSING ;
+{CURLYOPENING} return CURLYOPENING ;
+{CURLYCLOSING} return CURLYCLOSING ;
+{ALTER} return ALTER ;
+{REGEX} return REGEX ;
+{EXIST} return EXIST ;
+{SAME} return SAME ;
+{BOOL} return BOOL ;
+{ASSIGN} return ASSIGN ;
+{CHECKEQUAL} return CHECKEQUAL ;
+{PLUS} return PLUS ;
+{COLON} return COLON ;
+{MINUS} return MINUS ;
+{MUL} return MUL ;
+{DIV} return DIV ;
+{AT} return AT ;
+{COMMA} return COMMA ;
+{DOT} return DOT ;
+{ANGLEOPENING} return ANGLEOPENING ;
+{ANGLECLOSING} return ANGLECLOSING ;
+{NOT} return NOT ;
+{CONCAT} return CONCAT ;
+{LPARAN} return LPARAN ;
+{RPARAN} return RPARAN ;
+{ENDSTATEMENT} return ENDSTATEMENT ;
+{AND} return AND ;
+{OR} return OR ;
+{NEWLINE} ;
+{STRINGLITERAL} return STRINGLITERAL ;
+{INT} return INT ;
+{FLOAT} return FLOAT ;
+{ID} return ID ;
+{COMMENT} ;
+
+%%
+int yywrap()
+{
+	return 1;
+}

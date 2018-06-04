@@ -1,0 +1,1 @@
+graph3=d:{v[("name","armagan")]--e[("friends","yes")]->v[("name","taner")]

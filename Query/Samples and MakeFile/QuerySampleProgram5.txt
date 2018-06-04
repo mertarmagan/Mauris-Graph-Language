@@ -1,0 +1,1 @@
+query4=Q:EXIST?3*5+4/2@graph1

@@ -1,0 +1,97 @@
+%{
+#include<iostream>
+#include "y.tab.h"
+using namespace std;
+int yyparse();
+%}
+%option yylineno
+
+
+SPACE [ \t]+
+ASSIGN =
+CHECKEQUAL ==
+PLUS \+
+RDIR ->
+COLON :
+HYPHEN \-\-
+MINUS \-
+MUL \*
+DIV \/
+AT @
+COMMA ,
+DOT \.
+HASHTAG #
+ANGLEOPENING <
+ANGLECLOSING >
+NOT ~
+CONCAT _
+LPARAN \(
+RPARAN \)
+CURLYOPENING \{
+CURLYCLOSING \}
+SQUAREOPENING \[
+SQUARECLOSING \]
+ENDSTATEMENT ;
+AND &&
+OR \|\|
+DIGIT [0-9]
+LETTER [a-zA-Z]
+NEWLINE \n
+NONSTAR [^\*]
+NONSTARNONDIV [^\*/]
+NONNEWLINE [^\n]
+STRINGLITERAL	\"([^\"\\\n]|\\\"|\\n|\\t|\\\\)*\" 
+DGRAPHSIGN d
+UDGRAPHSIGN ud
+ID {LETTER}({LETTER}|{DIGIT})*
+INT ({MINUS}|{PLUS})?{DIGIT}+
+FLOAT {INT}"."{DIGIT}+
+COMMENT {DIV}{DIV}{NONNEWLINE}*{NEWLINE}|{DIV}\*({NONSTAR}|\*+{NONSTARNONDIV})*\*+{DIV}
+VERTEXSIGN v
+EDGESIGN e
+
+
+%%
+{HYPHEN} return HYPHEN ;
+{SPACE} ;
+{VERTEXSIGN} return VERTEXSIGN ;
+{EDGESIGN} return EDGESIGN ;
+{DGRAPHSIGN} return DGRAPHSIGN ;
+{UDGRAPHSIGN} return UDGRAPHSIGN ;
+{RDIR} return RDIR ;
+{AND} return AND ;
+{OR} return OR ;
+{DOT} return DOT ;
+{COMMENT} ;
+{COMMA} return COMMA ;
+{NEWLINE} ;
+{ENDSTATEMENT} return ENDSTATEMENT ;
+{ASSIGN} return ASSIGN ;
+{NOT} return NOT ;
+{CURLYOPENING} return CURLYOPENING ;
+{CURLYCLOSING} return CURLYCLOSING ;
+{PLUS} return PLUS ;
+{MINUS} return MINUS ;
+{MUL} return STAR ;
+{DIV} return DIV ;
+{LPARAN} return LPARAN ;
+{RPARAN} return RPARAN ;
+{SQUAREOPENING} return SQUAREOPENING ;
+{SQUARECLOSING} return SQUARECLOSING ;
+{STRINGLITERAL} return STRINGLITERAL ;
+{INT} return INT ;
+{FLOAT} return FLOAT ;
+{ID} return ID ;
+{CONCAT} return CONCAT ;
+{HASHTAG} return HASHTAG ;
+{COLON} return COLON ;
+{ANGLEOPENING} return ANGLEOPENING ;
+{ANGLECLOSING} return ANGLECLOSING ;
+{AT} return AT ;
+
+
+%%
+int yywrap()
+{
+	return 1;
+}

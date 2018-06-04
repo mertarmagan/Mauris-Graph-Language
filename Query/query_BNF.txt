@@ -1,0 +1,99 @@
+program: query_list
+
+query_list: query query_list
+			| arithmetic query_list
+			|
+
+query:	ID ASSIGN QSIGN COLON qtype AT ID
+		| ID ASSIGN QSIGN COLON qtype AT {yyerror("You have to specify the graph name after '@'.");}
+		| ID ASSIGN QSIGN COLON qtype ID {yyerror("Missing '@' sign before graph name.");}
+
+qtype:	REGEX QMARK regular_expression
+		| EXIST QMARK exist_expression
+		| BOOL QMARK boolean_expression
+		| SAME QMARK same_expression
+		| REGEX QMARK boolean_expression {yyerror("Regular expression is expected for 'REGEX' attribute.");}	
+
+same_expression:	STRINGLITERAL
+					| ID {yyerror("String literal is expected for 'SAME' attribute.");}
+
+boolean_expression:	LPARAN ID CHECKEQUAL primitive RPARAN boolean_expression_tail
+					| LPARAN NOT ID RPARAN boolean_expression_tail
+					| LPARAN ID AND ID RPARAN boolean_expression_tail
+					| LPARAN ID OR ID RPARAN boolean_expression_tail
+					| LPARAN EDGESIGN COMMA INT COMMA property RPARAN boolean_expression_tail
+					| LPARAN VERTEXSIGN COMMA INT COMMA property RPARAN boolean_expression_tail
+					| ID CHECKEQUAL primitive RPARAN boolean_expression_tail {yyerror("Missing left paranthesis '('.");}
+
+boolean_expression_tail:	AND boolean_expression boolean_expression_tail
+							| OR boolean_expression boolean_expression_tail
+							|
+
+exist_expression:	arithmetic
+					| property
+					| function
+					| type
+
+arithmetic:	INT arithmetic_tail
+			| arithmetic arithmetic_tail
+
+arithmetic_tail:	op INT arithmetic_tail
+					| op arithmetic_tail
+					| INT arithmetic_tail
+					|
+
+op: PLUS
+	| MINUS
+	| MUL
+	| DIV
+
+function:	ID LPARAN function_tail 
+
+function_tail:	primitive function_tail
+				| COMMA primitive function_tail
+				| RPARAN
+				| 	
+
+regular_expression:	ID CONCAT ID regular_expression_tail 
+					| ID ALTER ID regular_expression_tail
+					| ID MUL regular_expression_tail
+					| ID PLUS regular_expression_tail
+					| LPARAN regular_expression RPARAN
+
+regular_expression_tail:	regular_expression regular_expression_tail
+							| CONCAT ID regular_expression_tail
+							| ALTER ID regular_expression_tail
+							| 
+
+
+property:	LPARAN STRINGLITERAL COMMA type RPARAN
+			| LPARAN STRINGLITERAL type RPARAN {yyerror("Missing comma ',' before query type.");}
+			|
+
+type:	primitive
+		| list 
+		| set
+		| map
+
+primitive:	INT
+			| FLOAT
+			| STRINGLITERAL	
+
+list:	ANGLEOPENING primitive list_tail
+
+list_tail:	COMMA primitive list_tail
+			|  ANGLECLOSING
+
+set:	CURLYOPENING primitive set_tail
+
+set_tail:	COMMA primitive set_tail
+			| CURLYCLOSING
+
+map:	SQUAREOPENING map_body map_tail
+
+map_body:	STRINGLITERAL COLON primitive
+			| STRINGLITERAL COLON list
+			| STRINGLITERAL COLON set
+
+map_tail:	COMMA map_body map_tail
+			| SQUARECLOSING

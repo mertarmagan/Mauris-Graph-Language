@@ -1,0 +1,19 @@
+GraphSampleProgram1.txt:	Parsing completed without any errors.
+GraphSampleProgram2.txt:	Parsing completed without any errors.
+GraphSampleProgram3.txt:	Parsing completed without any errors.
+
+
+GraphProgramError1.txt:		error at line 1: Check graph sign keyword.
+							Parsing completed with 1 errors
+
+GraphProgramError2.txt:		error at line 1: Missing vertices
+							Parsing completed with 1 errors
+
+GraphProgramError3.txt:		error at line 1: Missing closing curly bracket for directed graph '}' 
+							Parsing completed with 1 errors	
+
+GraphProgramError4.txt:		error at line 1: Wrong edge sign error.
+							Parsing completed with 1 errors
+
+GraphProgramError5.txt:		error at line 1: Missing colon in graph definition.
+							Parsing completed with 1 errors	

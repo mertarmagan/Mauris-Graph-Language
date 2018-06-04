@@ -1,0 +1,1 @@
+graph2=d:{v[("surname","Gedik")]--e[("meetYear",2017)]->v[("student","Mertcan")]#v[("name","Bugra")]--e[("commonFriends",5)]->v[("student","Taner")]}

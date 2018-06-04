@@ -1,0 +1,20 @@
+QuerySampleProgram1.txt:	Parsing completed without any errors.
+QuerySampleProgram2.txt:	Parsing completed without any errors.
+QuerySampleProgram3.txt:	Parsing completed without any errors.
+QuerySampleProgram4.txt:	Parsing completed without any errors.
+QuerySampleProgram5.txt:	Parsing completed without any errors.
+
+QueryProgramError1:			error at line 1: You have to specify the graph name after '@'.
+							Parsing completed with 1 errors	
+
+QueryProgramError2:			error at line 1: Missing '@' sign before graph name.
+							Parsing completed with 1 errors
+
+QueryProgramError3:			error at line 1: Regular expression is expected for 'REGEX' attribute.
+							Parsing completed with 1 errors		
+
+QueryProgramError4:			error at line 1: String literal is expected for 'SAME' attribute.
+							Parsing completed with 1 errors		
+
+QueryProgramError5:			error at line 1: Missing comma ',' in property type.
+							Parsing completed with 1 errors	

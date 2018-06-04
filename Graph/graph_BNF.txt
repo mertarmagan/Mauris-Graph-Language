@@ -1,0 +1,75 @@
+program:	graph_list
+
+graph_list: graph graph_list
+			|
+
+graph:	ud_graph
+		| d_graph
+		| ID ASSIGN ID COLON CURLYOPENING conn_list CURLYCLOSING {yyerror("Check graph sign keyword!");}
+		| ID ASSIGN ID CURLYOPENING conn_list CURLYCLOSING {yyerror("Missing colon in graph definition!");}
+
+ud_graph:	ID ASSIGN UDGRAPHSIGN COLON CURLYOPENING ud_conn_list CURLYCLOSING
+			| ID ASSIGN UDGRAPHSIGN COLON CURLYOPENING ud_conn_list {yyerror("Missing closing curly '}' bracket in undirected graph!");}
+			| ID ASSIGN UDGRAPHSIGN COLON ud_conn_list CURLYCLOSING {yyerror("Missing opening curly '{' bracket for undirected graph!");}
+
+d_graph:	ID ASSIGN DGRAPHSIGN COLON CURLYOPENING d_conn_list CURLYCLOSING
+			| ID ASSIGN DGRAPHSIGN COLON CURLYOPENING d_conn_list {yyerror("Missing closing curly bracket for directed graph'}' ");}
+			| ID ASSIGN DGRAPHSIGN COLON d_conn_list: CURLYCLOSING {yyerror("Missing opening curly bracket for directed graph'{' ");} 	
+
+conn_list:	ud_conn_list
+			| d_conn_list
+
+ud_conn_list:	vertex HYPHEN edge HYPHEN vertex ud_conn_list_tail
+				| edge {yyerror("Missing vertices");}			 			
+
+ud_conn_list_tail:	HASHTAG ud_conn_list ud_conn_list_tail
+					|
+
+d_conn_list:	vertex HYPHEN edge RDIR vertex d_conn_list_tail
+				| edge {yyerror("Missing vertices");}
+
+d_conn_list_tail:	HASHTAG d_conn_list d_conn_list_tail
+					|
+
+
+vertex:		VERTEXSIGN SQUAREOPENING property SQUARECLOSING
+			| VERTEXSIGN property SQUARECLOSING {yyerror("Missing opening square paranthesis in vertex");}
+			| VERTEXSIGN SQUAREOPENING property {yyerror("Missing closing square paranthesis in vertex");}
+			| ID SQUAREOPENING property SQUARECLOSING {yyerror("Wrong vertex sign error.");}
+
+edge:		EDGESIGN SQUAREOPENING property SQUARECLOSING
+			| EDGESIGN property SQUARECLOSING {yyerror("Missing opening square paranthesis in edge");}
+			| EDGESIGN SQUAREOPENING property {yyerror("Missing closing square paranthesis in edge");}
+			| ID SQUAREOPENING property SQUARECLOSING {yyerror("Wrong edge sign error.");}
+
+property:	LPARAN STRINGLITERAL COMMA type RPARAN
+			| LPARAN STRINGLITERAL type RPARAN {yyerror("Missing comma");}
+			|
+
+type:	primitive
+		| list 
+		| set
+		| map
+
+primitive:	INT
+			| FLOAT
+			| STRINGLITERAL	
+
+list:	ANGLEOPENING primitive list_tail
+
+list_tail:	COMMA primitive list_tail
+			|  ANGLECLOSING
+
+set:	CURLYOPENING primitive set_tail
+
+set_tail:	COMMA primitive set_tail
+			| CURLYCLOSING
+
+map:	SQUAREOPENING map_body map_tail
+
+map_body:	STRINGLITERAL COLON primitive
+			| STRINGLITERAL COLON list
+			| STRINGLITERAL COLON set
+
+map_tail:	COMMA map_body map_tail
+			| SQUARECLOSING

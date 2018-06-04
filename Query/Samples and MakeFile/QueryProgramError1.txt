@@ -1,0 +1,1 @@
+query1=Q:REGEX?A|B_C@

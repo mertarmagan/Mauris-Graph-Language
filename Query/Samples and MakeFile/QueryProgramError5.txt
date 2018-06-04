@@ -1,0 +1,1 @@
+query1=Q:EXIST?("numOfFriends"146)@graph1

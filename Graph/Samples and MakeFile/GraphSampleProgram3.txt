@@ -1,0 +1,1 @@
+graph1=d:{v[("name","Armagan"),("id",113)]--e[("mutualInterests",2)]->v[("name","Taner"),("id",199)]#v[("name","Taner"),("id",199)]--e[("mutualInterests",5)]->v[("name","Mertcan"),("id",103)]}

@@ -1,0 +1,1 @@
+graph1=ud:{v[("teacher","Bugra")]--e[("like","true")]--v[("student","Armagan")]#v[("teacher","Bugra")]--e[("like","false")]--v[("student","Mertcan")]}

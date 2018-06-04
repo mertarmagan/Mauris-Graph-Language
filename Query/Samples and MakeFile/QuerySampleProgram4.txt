@@ -1,0 +1,1 @@
+query4=Q:SAME?"numOfFriends"@graph1
