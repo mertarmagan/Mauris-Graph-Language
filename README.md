@@ -9,5 +9,5 @@ This is a graph language project that was built in Spring 2017 for the Programmi
 
 ## Built With
 
-* Lex
-* Yacc
+* [Lex](http://dinosaur.compilertools.net/lex/index.html)
+* [Yacc](http://dinosaur.compilertools.net/yacc/index.html)
