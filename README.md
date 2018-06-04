@@ -9,5 +9,5 @@ This is a graph language project that was built in Spring 2017 for the Programmi
 
 ## Built With
 
-* [Lex](http://dinosaur.compilertools.net/lex/index.html) - A Lexical Analyzer Generator, used for defining tokens
-* [Yacc](http://dinosaur.compilertools.net/yacc/index.html) - Yet Another Compiler-Compiler, used for parsing our language according to tokens from Lex
+* [Lex](http://dinosaur.compilertools.net/lex/index.html) (A Lexical Analyzer Generator) - used for defining tokens
+* [Yacc](http://dinosaur.compilertools.net/yacc/index.html) (Yet Another Compiler-Compiler) - used for parsing our language according to tokens from Lex
